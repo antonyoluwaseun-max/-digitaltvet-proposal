@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigitalTVET AI Hub — Proposal</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Cabinet+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+:root{
+  --ink:#0f0e0c;
+  --ink2:#3d3b36;
+  --ink3:#8a8680;
+  --paper:#faf9f7;
+  --paper2:#f3f1ee;
+  --paper3:#ede9e3;
+  --accent:#1a6b3c;
+  --accent2:#2d9e60;
+  --accent-light:#e8f5ee;
+  --accent-pale:#f0faf4;
+  --gold:#c8860a;
+  --gold-light:#fef3dc;
+  --border:#e5e0d8;
+  --border2:#d5cfc6;
+  --white:#ffffff;
+  --shadow:0 1px 3px rgba(15,14,12,0.06), 0 4px 16px rgba(15,14,12,0.04);
+  --shadow-lg:0 8px 32px rgba(15,14,12,0.1), 0 2px 8px rgba(15,14,12,0.06);
+}
+body{font-family:'Cabinet Grotesk',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;overflow-x:hidden;}
+
+/* ── MARQUEE BANNER ── */
+.marquee-wrap{background:var(--ink);padding:10px 0;overflow:hidden;white-space:nowrap;}
+.marquee-track{display:inline-flex;animation:marquee 25s linear infinite;}
+.marquee-item{display:inline-flex;align-items:center;gap:16px;padding:0 32px;font-size:12px;color:rgba(255,255,255,0.6);letter-spacing:1px;text-transform:uppercase;font-weight:500;}
+.marquee-dot{width:4px;height:4px;background:var(--accent2);border-radius:50%;}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(250,249,247,0.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0 48px;height:60px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logomark{width:28px;height:28px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;}
+.nav-logomark svg{width:14px;height:14px;fill:white;}
+.nav-brand{font-family:'Fraunces',serif;font-size:17px;font-weight:400;color:var(--ink);}
+.nav-brand em{font-style:italic;color:var(--accent);}
+.nav-center{display:flex;gap:32px;}
+.nav-link{font-size:13px;color:var(--ink3);cursor:pointer;transition:color 0.2s;font-weight:500;}
+.nav-link:hover{color:var(--ink);}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.nav-tag{background:var(--accent-light);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:4px;}
+.nav-btn{background:var(--ink);color:white;border:none;border-radius:6px;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Cabinet Grotesk',sans-serif;}
+
+/* ── HERO ── */
+.hero{
+  max-width:1080px;margin:0 auto;
+  padding:100px 48px 80px;
+  display:grid;grid-template-columns:1fr 420px;gap:80px;align-items:center;
+}
+.hero-left{}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--gold-light);border:1px solid #e8c97a;border-radius:100px;padding:5px 14px;font-size:11px;color:var(--gold);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:28px;}
+.hero-title{font-family:'Fraunces',serif;font-size:clamp(42px,5vw,62px);font-weight:300;line-height:1.1;letter-spacing:-1px;margin-bottom:24px;color:var(--ink);}
+.hero-title em{font-style:italic;color:var(--accent);}
+.hero-title strong{font-weight:500;}
+.hero-body{font-size:17px;color:var(--ink2);line-height:1.8;margin-bottom:36px;font-weight:400;}
+.hero-actions{display:flex;gap:12px;align-items:center;}
+.btn-ink{background:var(--ink);color:white;border:none;border-radius:8px;padding:14px 28px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Cabinet Grotesk',sans-serif;transition:all 0.2s;}
+.btn-ink:hover{background:#2a2a2a;}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--border2);border-radius:8px;padding:14px 28px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Cabinet Grotesk',sans-serif;transition:all 0.2s;}
+.btn-ghost:hover{border-color:var(--ink);}
+
+/* HERO RIGHT — CARD STACK */
+.hero-right{position:relative;}
+.card-stack{position:relative;height:380px;}
+.stack-card{position:absolute;border-radius:16px;border:1px solid var(--border);background:white;box-shadow:var(--shadow-lg);padding:20px;}
+.sc-main{width:100%;top:0;left:0;z-index:3;}
+.sc-behind1{width:92%;top:16px;left:4%;z-index:2;opacity:0.6;filter:blur(0.5px);}
+.sc-behind2{width:84%;top:28px;left:8%;z-index:1;opacity:0.3;filter:blur(1px);}
+.sc-topbar{display:flex;align-items:center;gap:8px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.sc-dots{display:flex;gap:5px;}
+.sc-dot{width:8px;height:8px;border-radius:50%;}
+.sc-hub-name{font-size:12px;color:var(--ink3);font-weight:500;margin-left:4px;}
+.sc-question{background:var(--accent-pale);border:1px solid rgba(26,107,60,0.12);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--ink);margin-bottom:10px;text-align:right;}
+.sc-answer{background:var(--paper2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--ink2);line-height:1.6;}
+.sc-answer-tag{font-size:10px;color:var(--accent);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.sc-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.sc-chip{background:var(--paper2);border:1px solid var(--border);border-radius:100px;padding:4px 10px;font-size:11px;color:var(--ink3);}
+
+/* ── LOGOS / TRUST ── */
+.trust-bar{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:28px 48px;background:var(--paper2);}
+.trust-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:48px;}
+.trust-label{font-size:11px;color:var(--ink3);letter-spacing:2px;text-transform:uppercase;font-weight:600;white-space:nowrap;}
+.trust-divider{width:1px;height:24px;background:var(--border2);}
+.trust-items{display:flex;gap:40px;align-items:center;flex:1;}
+.trust-item{font-size:13px;color:var(--ink3);font-weight:600;letter-spacing:0.5px;}
+
+/* ── SECTIONS ── */
+.section{max-width:1080px;margin:0 auto;padding:80px 48px;}
+.section-label{font-size:11px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:16px;}
+.section-title{font-family:'Fraunces',serif;font-size:clamp(32px,4vw,48px);font-weight:300;letter-spacing:-0.5px;margin-bottom:16px;line-height:1.15;}
+.section-title em{font-style:italic;color:var(--accent);}
+.section-body{font-size:16px;color:var(--ink2);max-width:560px;line-height:1.8;}
+
+/* ── PLATFORM SCREENSHOT ── */
+.platform-wrap{
+  border:1px solid var(--border);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:var(--shadow-lg);
+  background:white;
+  margin:48px 0;
+}
+.platform-titlebar{
+  background:var(--paper2);
+  border-bottom:1px solid var(--border);
+  padding:12px 20px;
+  display:flex;align-items:center;gap:16px;
+}
+.ptb-dots{display:flex;gap:6px;}
+.ptb-dot{width:10px;height:10px;border-radius:50%;}
+.ptb-url{flex:1;background:white;border:1px solid var(--border);border-radius:6px;padding:5px 14px;font-size:11px;color:var(--ink3);text-align:center;}
+
+.platform-layout{display:grid;grid-template-columns:200px 1fr;min-height:480px;}
+.plat-sidebar{background:var(--paper);border-right:1px solid var(--border);padding:16px 0;}
+.plat-s-logo{padding:0 16px 16px;border-bottom:1px solid var(--border);margin-bottom:12px;}
+.plat-s-logo-inner{display:flex;align-items:center;gap:8px;}
+.plat-s-mark{width:24px;height:24px;background:var(--accent);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:white;font-family:'Cabinet Grotesk',sans-serif;}
+.plat-s-name{font-size:13px;font-weight:700;color:var(--ink);}
+.plat-s-name span{color:var(--accent);}
+.plat-s-section{font-size:9px;color:var(--ink3);letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:10px 16px 6px;}
+.plat-s-item{display:flex;align-items:center;gap:8px;padding:7px 16px;font-size:12px;color:var(--ink3);cursor:pointer;transition:all 0.15s;border-left:2px solid transparent;}
+.plat-s-item:hover{background:var(--paper2);color:var(--ink);}
+.plat-s-item.on{background:var(--accent-light);color:var(--accent);border-left-color:var(--accent);font-weight:600;}
+.plat-s-icon{font-size:13px;width:16px;}
+
+.plat-main{padding:20px;background:white;}
+.plat-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.plat-title{font-family:'Cabinet Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--ink);}
+.plat-actions{display:flex;gap:8px;}
+.plat-btn{background:var(--ink);color:white;border:none;border-radius:6px;padding:6px 14px;font-size:11px;font-weight:600;cursor:pointer;}
+.plat-btn-sm{background:var(--paper2);border:1px solid var(--border);color:var(--ink3);border-radius:6px;padding:6px 12px;font-size:11px;cursor:pointer;}
+
+.hubs-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.hub{border:1px solid var(--border);border-radius:10px;padding:12px;cursor:pointer;transition:all 0.2s;position:relative;background:var(--paper);}
+.hub.on{background:var(--accent-pale);border-color:rgba(26,107,60,0.25);}
+.hub-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.hub-em{font-size:18px;}
+.hub-tag{font-size:9px;background:var(--accent-light);color:var(--accent);font-weight:700;padding:2px 6px;border-radius:3px;}
+.hub-n{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.hub-s{font-size:10px;color:var(--ink3);}
+
+.chat-box{border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.chat-header{background:var(--paper2);padding:8px 14px;border-bottom:1px solid var(--border);font-size:11px;color:var(--ink3);font-weight:600;display:flex;align-items:center;gap:6px;}
+.chat-header-dot{width:6px;height:6px;background:var(--accent2);border-radius:50%;}
+.chat-msgs{padding:14px;display:flex;flex-direction:column;gap:8px;background:white;}
+.cmsg{padding:8px 12px;border-radius:8px;font-size:11px;line-height:1.55;max-width:85%;}
+.cmsg-u{background:var(--ink);color:white;align-self:flex-end;border-radius:8px 8px 2px 8px;}
+.cmsg-a{background:var(--paper2);border:1px solid var(--border);color:var(--ink2);align-self:flex-start;border-radius:8px 8px 8px 2px;}
+.cmsg-a-label{font-size:9px;color:var(--accent);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;}
+.chat-footer{background:var(--paper);border-top:1px solid var(--border);padding:8px 12px;display:flex;gap:8px;}
+.chat-inp{flex:1;background:white;border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:11px;color:var(--ink);font-family:'Cabinet Grotesk',sans-serif;outline:none;}
+.chat-send-btn{background:var(--accent);border:none;border-radius:6px;padding:6px 12px;color:white;font-size:11px;font-weight:600;cursor:pointer;}
+
+/* ── FEATURES ── */
+.features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:48px;}
+.feat{background:white;padding:32px;transition:background 0.2s;}
+.feat:hover{background:var(--paper);}
+.feat-num{font-family:'Fraunces',serif;font-size:48px;font-weight:300;color:var(--paper3);line-height:1;margin-bottom:12px;}
+.feat-title{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+.feat-body{font-size:14px;color:var(--ink3);line-height:1.7;}
+.feat-tag{display:inline-block;margin-top:12px;background:var(--accent-light);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:3px;}
+
+/* ── MONETIZE ── */
+.mono-section{background:var(--ink);border-radius:24px;padding:64px;margin:0 0 80px;}
+.mono-title{font-family:'Fraunces',serif;font-size:clamp(32px,4vw,52px);font-weight:300;color:white;line-height:1.1;margin-bottom:16px;}
+.mono-title em{font-style:italic;color:var(--accent2);}
+.mono-body{font-size:16px;color:rgba(255,255,255,0.55);max-width:520px;line-height:1.8;margin-bottom:48px;}
+.mono-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.mono-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:24px;transition:all 0.2s;}
+.mono-card:hover{background:rgba(255,255,255,0.07);}
+.mono-icon{font-size:24px;margin-bottom:12px;}
+.mono-card-title{font-size:15px;font-weight:700;color:white;margin-bottom:6px;}
+.mono-card-body{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:12px;}
+.mono-amount{font-family:'Fraunces',serif;font-size:26px;font-weight:300;color:var(--accent2);font-style:italic;}
+.mono-per{font-size:12px;color:rgba(255,255,255,0.35);}
+
+/* ── ROADMAP ── */
+.roadmap-track{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:48px;}
+.road-phase{padding:28px;border-right:1px solid var(--border);position:relative;}
+.road-phase:last-child{border-right:none;}
+.road-phase-num{font-family:'Fraunces',serif;font-size:64px;font-weight:300;color:var(--paper3);line-height:1;position:absolute;bottom:20px;right:20px;}
+.road-week{font-size:10px;color:var(--accent);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.road-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:14px;}
+.road-items{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.road-items li{font-size:12px;color:var(--ink3);display:flex;align-items:flex-start;gap:6px;line-height:1.4;}
+.road-items li::before{content:'→';color:var(--accent);font-size:10px;margin-top:2px;flex-shrink:0;}
+
+/* ── CTA ── */
+.cta{
+  text-align:center;padding:100px 48px;
+  background:linear-gradient(180deg,var(--paper) 0%,var(--accent-pale) 100%);
+  border-top:1px solid var(--border);
+}
+.cta-pre{font-size:11px;color:var(--accent);font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;}
+.cta-title{font-family:'Fraunces',serif;font-size:clamp(36px,5vw,60px);font-weight:300;letter-spacing:-1px;margin-bottom:20px;line-height:1.1;}
+.cta-title em{font-style:italic;color:var(--accent);}
+.cta-sub{font-size:17px;color:var(--ink2);max-width:480px;margin:0 auto 40px;line-height:1.75;}
+.cta-note{font-size:12px;color:var(--ink3);margin-top:16px;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--paper);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;gap:48px;padding:60px 24px 48px;}
+  .hero-right{display:none;}
+  nav{padding:0 24px;}
+  .nav-center{display:none;}
+  .section{padding:60px 24px;}
+  .features-grid{grid-template-columns:1fr;}
+  .mono-grid{grid-template-columns:1fr;}
+  .roadmap-track{grid-template-columns:repeat(2,1fr);}
+  .trust-inner{flex-wrap:wrap;gap:20px;}
+  .platform-layout{grid-template-columns:1fr;}
+  .plat-sidebar{display:none;}
+  .mono-section{padding:40px 24px;}
+  .hubs-row{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item"><span>Custom AI Platform</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>DigitalTVET Branded</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>NotebookLM Replacement</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Revenue Ready</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>6 Programme Hubs</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>AI Powered</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Fully Owned by You</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Custom AI Platform</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>DigitalTVET Branded</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>NotebookLM Replacement</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Revenue Ready</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>6 Programme Hubs</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>AI Powered</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Fully Owned by You</span><div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logomark">
+      <svg viewBox="0 0 16 16"><path d="M8 1L14 4.5V11.5L8 15L2 11.5V4.5L8 1Z"/></svg>
+    </div>
+    <div class="nav-brand">Digital<em>TVET</em></div>
+  </div>
+  <div class="nav-center">
+    <div class="nav-link">Overview</div>
+    <div class="nav-link">Features</div>
+    <div class="nav-link">Monetize</div>
+    <div class="nav-link">Roadmap</div>
+  </div>
+  <div class="nav-right">
+    <div class="nav-tag">Proposal</div>
+    <button class="nav-btn">Get Started</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">🌿 Built exclusively for SGA Academy</div>
+    <h1 class="hero-title">
+      Your own<br>
+      <em>AI Knowledge</em><br>
+      <strong>Platform.</strong>
+    </h1>
+    <p class="hero-body">Stop relying on Google's NotebookLM. We build you a custom, fully branded AI hub that lives on your domain, answers from your content, and can be monetized as a product.</p>
+    <div class="hero-actions">
+      <button class="btn-ink">See the Platform →</button>
+      <button class="btn-ghost">View Roadmap</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="card-stack">
+      <div class="stack-card sc-behind2" style="height:320px;"></div>
+      <div class="stack-card sc-behind1" style="height:330px;"></div>
+      <div class="stack-card sc-main">
+        <div class="sc-topbar">
+          <div class="sc-dots">
+            <div class="sc-dot" style="background:#f87171;"></div>
+            <div class="sc-dot" style="background:#fbbf24;"></div>
+            <div class="sc-dot" style="background:#4ade80;"></div>
+          </div>
+          <div class="sc-hub-name">💻 Computer Systems Hub — DigitalTVET</div>
+        </div>
+        <div class="sc-question">What is the difference between RAM and ROM?</div>
+        <div class="sc-answer">
+          <div class="sc-answer-tag">From your module notes</div>
+          RAM is temporary memory used during active processes — it clears when powered off. ROM is permanent storage that retains boot instructions regardless of power state. Based on your Module 3 upload, RAM speed directly determines processing performance in your lab simulations.
+        </div>
+        <div class="sc-chips">
+          <div class="sc-chip">📄 Module 3.pdf</div>
+          <div class="sc-chip">📄 Lab Guide.pdf</div>
+          <div class="sc-chip">Generate Quiz →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-label">Works for</div>
+    <div class="trust-divider"></div>
+    <div class="trust-items">
+      <div class="trust-item">TVET Students</div>
+      <div class="trust-item">Lecturers & Trainers</div>
+      <div class="trust-item">Corporate Teams</div>
+      <div class="trust-item">External Institutions</div>
+      <div class="trust-item">Self Learners</div>
+    </div>
+  </div>
+</div>
+
+<!-- PLATFORM PREVIEW -->
+<div class="section">
+  <div class="section-label">Platform Preview</div>
+  <h2 class="section-title">This is what your<br><em>students will see</em></h2>
+  <p class="section-body">A clean, intuitive interface where students and staff ask questions and get answers from your exact uploaded materials — not from the internet.</p>
+
+  <div class="platform-wrap">
+    <div class="platform-titlebar">
+      <div class="ptb-dots">
+        <div class="ptb-dot" style="background:#f87171;"></div>
+        <div class="ptb-dot" style="background:#fbbf24;"></div>
+        <div class="ptb-dot" style="background:#4ade80;"></div>
+      </div>
+      <div class="ptb-url">hub.digitaltvet.asia — AI Knowledge Hub</div>
+    </div>
+    <div class="platform-layout">
+      <div class="plat-sidebar">
+        <div class="plat-s-logo">
+          <div class="plat-s-logo-inner">
+            <div class="plat-s-mark">D</div>
+            <div class="plat-s-name">Digital<span>TVET</span></div>
+          </div>
+        </div>
+        <div class="plat-s-section">Programmes</div>
+        <div class="plat-s-item on"><span class="plat-s-icon">💻</span>Computer Systems</div>
+        <div class="plat-s-item"><span class="plat-s-icon">⚙️</span>Mechatronics</div>
+        <div class="plat-s-item"><span class="plat-s-icon">🚁</span>Drone Technology</div>
+        <div class="plat-s-item"><span class="plat-s-icon">⚡</span>Electric Vehicle</div>
+        <div class="plat-s-item"><span class="plat-s-icon">🍳</span>Culinary Arts</div>
+        <div class="plat-s-item"><span class="plat-s-icon">🎥</span>Multimedia</div>
+        <div class="plat-s-section">Tools</div>
+        <div class="plat-s-item"><span class="plat-s-icon">📤</span>Upload Sources</div>
+        <div class="plat-s-item"><span class="plat-s-icon">📝</span>Study Guides</div>
+        <div class="plat-s-item"><span class="plat-s-icon">❓</span>Quiz Generator</div>
+        <div class="plat-s-item"><span class="plat-s-icon">⚙️</span>Admin Panel</div>
+      </div>
+      <div class="plat-main">
+        <div class="plat-topbar">
+          <div class="plat-title">Computer Systems — Knowledge Hub</div>
+          <div class="plat-actions">
+            <button class="plat-btn-sm">+ Upload</button>
+            <button class="plat-btn">New Chat</button>
+          </div>
+        </div>
+        <div class="hubs-row">
+          <div class="hub on">
+            <div class="hub-top"><div class="hub-em">💻</div><div class="hub-tag">ACTIVE</div></div>
+            <div class="hub-n">Computer Systems</div>
+            <div class="hub-s">12 docs · 847 pages</div>
+          </div>
+          <div class="hub">
+            <div class="hub-top"><div class="hub-em">⚙️</div></div>
+            <div class="hub-n">Mechatronics</div>
+            <div class="hub-s">8 docs · 634 pages</div>
+          </div>
+          <div class="hub">
+            <div class="hub-top"><div class="hub-em">🚁</div></div>
+            <div class="hub-n">Drone Technology</div>
+            <div class="hub-s">6 docs · 412 pages</div>
+          </div>
+        </div>
+        <div class="chat-box">
+          <div class="chat-header">
+            <div class="chat-header-dot"></div>
+            AI is reading from your uploaded documents only
+          </div>
+          <div class="chat-msgs">
+            <div class="cmsg cmsg-u">Explain how a CPU processes instructions step by step</div>
+            <div class="cmsg cmsg-a">
+              <div class="cmsg-a-label">From Module 4 — Computer Architecture</div>
+              The CPU processes instructions through the Fetch-Decode-Execute cycle. First it fetches the instruction from RAM using the Program Counter. Then the Control Unit decodes it into micro-operations. Finally the ALU executes it and stores the result. Your lab notes on page 34 include a diagram of this cycle for your upcoming assessment.
+            </div>
+            <div class="cmsg cmsg-u">Generate 3 exam questions on this topic</div>
+          </div>
+          <div class="chat-footer">
+            <input class="chat-inp" placeholder="Ask anything from your programme materials..." />
+            <button class="chat-send-btn">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div class="section" style="padding-top:0;">
+  <div class="section-label">Core Features</div>
+  <h2 class="section-title">Everything you need.<br><em>Nothing you don't.</em></h2>
+  <div class="features-grid">
+    <div class="feat">
+      <div class="feat-num">01</div>
+      <div class="feat-title">AI That Reads Your Documents</div>
+      <div class="feat-body">Upload any PDF, module, manual or website. The AI reads everything and answers questions exclusively from your content — not from the internet. Students always get accurate, curriculum-aligned answers.</div>
+      <div class="feat-tag">Core Feature</div>
+    </div>
+    <div class="feat">
+      <div class="feat-num">02</div>
+      <div class="feat-title">6 Programme Knowledge Hubs</div>
+      <div class="feat-body">Separate AI-powered spaces for Computer Systems, Mechatronics, Drone, EV, Culinary and Multimedia. Each hub has its own uploaded sources, chat history and generated study materials.</div>
+      <div class="feat-tag">All Programmes</div>
+    </div>
+    <div class="feat">
+      <div class="feat-num">03</div>
+      <div class="feat-title">Instant Study Guide Generator</div>
+      <div class="feat-body">Upload a module and the AI automatically creates summaries, key concept breakdowns, FAQs and revision questions. What takes a lecturer two hours takes the AI two seconds.</div>
+      <div class="feat-tag">Time Saver</div>
+    </div>
+    <div class="feat">
+      <div class="feat-num">04</div>
+      <div class="feat-title">Use It for Anything</div>
+      <div class="feat-body">Beyond TVET programmes — HR documents, staff training manuals, company policies, client onboarding guides. Any document you upload becomes instantly searchable and answerable through AI.</div>
+      <div class="feat-tag">Flexible</div>
+    </div>
+    <div class="feat">
+      <div class="feat-num">05</div>
+      <div class="feat-title">Student & Admin Portals</div>
+      <div class="feat-body">Separate login roles for students, lecturers and administrators. Students access their programme hubs. Admins upload content, manage users and view usage. Full control in one place.</div>
+      <div class="feat-tag">Multi-Role</div>
+    </div>
+    <div class="feat">
+      <div class="feat-num">06</div>
+      <div class="feat-title">100% DigitalTVET Branded</div>
+      <div class="feat-body">Your logo, your colours, your domain at hub.digitaltvet.asia. No Google branding, no third-party logos. Students and clients see DigitalTVET. You own it completely — forever.</div>
+      <div class="feat-tag">Your Brand</div>
+    </div>
+  </div>
+</div>
+
+<!-- MONETIZE -->
+<div class="section" style="padding-top:0;">
+  <div class="mono-section">
+    <div class="section-label" style="color:var(--accent2);">Revenue Opportunity</div>
+    <h2 class="mono-title">This platform can<br>make you <em>money.</em></h2>
+    <p class="mono-body">Depending on how far you want to take it this can become a SaaS product — a software business that generates recurring monthly income completely separate from your training fees.</p>
+    <div class="mono-grid">
+      <div class="mono-card">
+        <div class="mono-icon">🏫</div>
+        <div class="mono-card-title">License to Other Institutions</div>
+        <div class="mono-card-body">Other TVET colleges and private academies pay monthly to use your platform for their content. You become the platform provider.</div>
+        <div class="mono-amount">RM500–2,000</div>
+        <div class="mono-per">per institution / month</div>
+      </div>
+      <div class="mono-card">
+        <div class="mono-icon">🏢</div>
+        <div class="mono-card-title">Corporate Training Subscriptions</div>
+        <div class="mono-card-body">Companies subscribe to upload their internal training documents and give staff AI-powered access. HR and L&D teams love this.</div>
+        <div class="mono-amount">RM800–3,000</div>
+        <div class="mono-per">per company / month</div>
+      </div>
+      <div class="mono-card">
+        <div class="mono-icon">🎓</div>
+        <div class="mono-card-title">Student Premium Access</div>
+        <div class="mono-card-body">Alumni and self-learners pay for premium access to specific knowledge hubs outside your enrolled student base.</div>
+        <div class="mono-amount">RM29–99</div>
+        <div class="mono-per">per student / month</div>
+      </div>
+      <div class="mono-card">
+        <div class="mono-icon">🌏</div>
+        <div class="mono-card-title">Southeast Asia Expansion</div>
+        <div class="mono-card-body">First mover advantage. License the platform to TVET institutions across Indonesia, Thailand, Philippines and Vietnam.</div>
+        <div class="mono-amount">Unlimited</div>
+        <div class="mono-per">scaling potential</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROADMAP -->
+<div class="section" style="padding-top:0;">
+  <div class="section-label">Build Plan</div>
+  <h2 class="section-title">How we build it.<br><em>Phase by phase.</em></h2>
+  <p class="section-body">A clear phased approach so you start using it fast and we keep building as you grow.</p>
+  <div class="roadmap-track">
+    <div class="road-phase">
+      <div class="road-phase-num">1</div>
+      <div class="road-week">Week 1–2</div>
+      <div class="road-title">Core Platform</div>
+      <ul class="road-items">
+        <li>Login system</li>
+        <li>Document upload engine</li>
+        <li>AI Q&A interface</li>
+        <li>6 programme hubs</li>
+        <li>DigitalTVET branding</li>
+        <li>Hosted on your domain</li>
+      </ul>
+    </div>
+    <div class="road-phase">
+      <div class="road-phase-num">2</div>
+      <div class="road-week">Week 3</div>
+      <div class="road-title">Smart Tools</div>
+      <ul class="road-items">
+        <li>Study guide generator</li>
+        <li>Quiz generator</li>
+        <li>Summary creator</li>
+        <li>Source citation display</li>
+        <li>Cross-hub search</li>
+      </ul>
+    </div>
+    <div class="road-phase">
+      <div class="road-phase-num">3</div>
+      <div class="road-week">Week 4</div>
+      <div class="road-title">Admin & Users</div>
+      <ul class="road-items">
+        <li>Admin dashboard</li>
+        <li>Student management</li>
+        <li>Usage analytics</li>
+        <li>Role-based access</li>
+        <li>Full handover</li>
+      </ul>
+    </div>
+    <div class="road-phase">
+      <div class="road-phase-num">4</div>
+      <div class="road-week">Future Phase</div>
+      <div class="road-title">Monetize</div>
+      <ul class="road-items">
+        <li>Subscription billing</li>
+        <li>Multi-tenant support</li>
+        <li>White-label licensing</li>
+        <li>Corporate portal</li>
+        <li>Mobile app</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <div class="cta-pre">Ready when you are</div>
+  <h2 class="cta-title">Your platform.<br><em>Your future.</em></h2>
+  <p class="cta-sub">This is not just a replacement for NotebookLM. This is the foundation of a digital education product that you own and can scale across Malaysia and Southeast Asia.</p>
+  <div class="hero-actions" style="justify-content:center;">
+    <button class="btn-ink">Yes — Let's Build This</button>
+    <button class="btn-ghost">Ask a Question</button>
+  </div>
+  <div class="cta-note">Built by the same team behind sales.sgacademy.edu.my and intelligence.sgacademy.edu.my</div>
+</div>
+
+</body>
+</html>
